@@ -48,14 +48,8 @@ all_maps = [
 ]
 
 sidedef_switch_doublet: list[tuple[str, str]] = [
-    ('SW1BRN1',  'SW1BRCOM'),
-    ('SW1STARG', 'SW1BRCOM'),
-    ('SW1STON2', 'SW1BRCOM'),
-    ('SW1STONE', 'SW1BRCOM'),
-    ('SW2BRN1',  'SW2BRCOM'),
-    ('SW2STARG', 'SW2BRCOM'),
-    ('SW2STON2', 'SW2BRCOM'),
-    ('SW2STONE', 'SW2BRCOM'),
+    ('BRNPOIS',  'BRNPOIS0'),
+    ('NUKEPOIS', 'NUKPOIS0'),
 ]
 
 def log(line: str) -> None:
@@ -70,15 +64,15 @@ def sidedef_switch(map_editor: MapEditor, initial_texture: str, desired_texture:
     for single_sidedef in map_editor.sidedefs:
         # Loop
         if single_sidedef.tx_up == initial_texture:
-            log(f'Found {initial_tex}')
+            log(f'Found {initial_texture}')
             single_sidedef.tx_up = desired_texture
         # through
         if single_sidedef.tx_mid == initial_texture:
-            log(f'Found {initial_tex}')
+            log(f'Found {initial_texture}')
             single_sidedef.tx_mid = desired_texture
         # all
         if single_sidedef.tx_low == initial_texture:
-            log(f'Found {initial_tex}')
+            log(f'Found {initial_texture}')
             single_sidedef.tx_low = desired_texture
 
 base = WAD(from_file='doom_complete.wad')
@@ -86,9 +80,9 @@ base = WAD(from_file='doom_complete.wad')
 for map_slot in all_maps:
     log(f'Fixing map {map_slot}')
     for doublet in sidedef_switch_doublet:
-        initial_tex = doublet[0]
-        desired_tex = doublet[1]
+        initial_texture = doublet[0]
+        desired_texture = doublet[1]
         map_edit = MapEditor(base.maps[map_slot]) #type:ignore
-        sidedef_switch(map_edit, initial_tex, desired_tex)
+        sidedef_switch(map_edit, initial_texture, desired_texture)
 
 base.to_file('doom_complete_fixed.wad')
