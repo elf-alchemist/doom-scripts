@@ -69,22 +69,27 @@ def log(line: str) -> None:
 def sidedef_switch(map_editor: MapEditor, initial_texture: str, desired_texture: str):
     for single_sidedef in map_editor.sidedefs:
         # Loop
+        log(f'Sidedef {single_sidedef.tx_up} {single_sidedef.tx_mid} {single_sidedef.tx_low}')
         if single_sidedef.tx_up == initial_texture:
+            log(f'Found {initial_tex}')
             single_sidedef.tx_up = desired_texture
         # through
         if single_sidedef.tx_mid == initial_texture:
+            log(f'Found {initial_tex}')
             single_sidedef.tx_mid = desired_texture
         # all
         if single_sidedef.tx_low == initial_texture:
+            log(f'Found {initial_tex}')
             single_sidedef.tx_low = desired_texture
 
 base = WAD(from_file='doom_complete.wad')
 
-for doublet in sidedef_switch_doublet:
-    for map_slot in all_maps:
-        map_edit = MapEditor(base.maps[map_slot]) #type:ignore
+for map_slot in all_maps:
+    log(f'Fixing map {map_slot}')
+    for doublet in sidedef_switch_doublet:
         initial_tex = doublet[0]
         desired_tex = doublet[1]
+        map_edit = MapEditor(base.maps[map_slot]) #type:ignore
         sidedef_switch(map_edit, initial_tex, desired_tex)
 
 base.to_file('doom_complete_fixed.wad')
