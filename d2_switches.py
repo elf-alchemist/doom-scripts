@@ -1,9 +1,7 @@
 from omg import MapEditor, WAD
 
 log_file = None
-log_path = 'masterpack.log'
-buffer_size = 16384
-source_dir = 'source/'
+log_path = 'switches.log'
 
 all_maps = [
     'MAP37',
@@ -49,31 +47,15 @@ all_maps = [
     'MAP77',
 ]
 
-sidedef_switch_doublet = [
-    ['SKY4', 'MSKY1'],
-
-    ['DBRAIN1', 'WATER'],
-    ['SW1COMP', 'TT1COMP'],
-    ['SW1STON1', 'TT1STON1'],
-    ['SW1STON2', 'TT1STON2'],
-
-    ['SW1STON2', 'TT1STON5'],
-
-    ['SW1BRIK', 'TT1BRIK'],
-    ['SW1STON1', 'TT1STON3'],
-    ['SW1STON2', 'TT1STON4'],
-
-    ['SW1VINE', 'TT1VINE'],
-    ['SW1PIPE', 'TT1PIPE'],
-    ['SW1STON1', 'TT1STON5'],
-    ['SW1STON2', 'TT1STON6'],
-    ['SW1STON6', 'TT1STON7'],
-
-    ['PIC00', 'PORTAL1'],
-    ['PIC01', 'PORTAL2'],
-    ['PIC06', 'PORTAL3'],
-    ['PIC07', 'PORTAL4'],
-    ['PIC13', 'PORTAL5'],
+sidedef_switch_doublet: list[tuple[str, str]] = [
+    ('SW1BRN1',  'SW1BRCOM'),
+    ('SW1STARG', 'SW1BRCOM'),
+    ('SW1STON2', 'SW1BRCOM'),
+    ('SW1STONE', 'SW1BRCOM'),
+    ('SW2BRN1',  'SW2BRCOM'),
+    ('SW2STARG', 'SW2BRCOM'),
+    ('SW2STON2', 'SW2BRCOM'),
+    ('SW2STONE', 'SW2BRCOM'),
 ]
 
 def log(line: str) -> None:
@@ -84,14 +66,17 @@ def log(line: str) -> None:
     log_file.write(line + '\n')
 
 
-def massive_simple_sidedef_switch(map: MapEditor, initial_tx: str, desired_tx: str):
-    for sidedef in map.sidedefs:
-        if sidedef.tx_up == initial_tx:
-            sidedef.tx_up = desired_tx
-        if sidedef.tx_mid == initial_tx:
-            sidedef.tx_mid = desired_tx
-        if sidedef.tx_low == initial_tx:
-            sidedef.tx_low = desired_tx
+def sidedef_switch(map_editor: MapEditor, initial_texture: str, desired_texture: str):
+    for single_sidedef in map_editor.sidedefs:
+        # Loop
+        if single_sidedef.tx_up == initial_texture:
+            single_sidedef.tx_up = desired_texture
+        # through
+        if single_sidedef.tx_mid == initial_texture:
+            single_sidedef.tx_mid = desired_texture
+        # all
+        if single_sidedef.tx_low == initial_texture:
+            single_sidedef.tx_low = desired_texture
 
 base = WAD(from_file='doom_complete.wad')
 
@@ -100,5 +85,6 @@ for doublet in sidedef_switch_doublet:
         map_edit = MapEditor(base.maps[map_slot]) #type:ignore
         initial_tex = doublet[0]
         desired_tex = doublet[1]
-        massive_simple_sidedef_switch(map_edit, initial_tex, desired_tex)
+        sidedef_switch(map_edit, initial_tex, desired_tex)
 
+base.to_file('doom_complete_fixed.wad')
