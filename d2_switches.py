@@ -58,6 +58,7 @@ sidedef_switch_doublet: list[tuple[str, str]] = [
     ('SW2STONE', 'SW2BRCOM'),
 ]
 
+
 def log(line: str) -> None:
     global log_file
     if not log_file:
@@ -81,7 +82,9 @@ def sidedef_switch(map_editor: MapEditor, initial_texture: str, desired_texture:
             log(f'Found {initial_tex}')
             single_sidedef.tx_low = desired_texture
 
+
 base = WAD(from_file='doom_complete.wad')
+
 
 for map_slot in all_maps:
     log(f'Fixing map {map_slot}')
@@ -90,5 +93,6 @@ for map_slot in all_maps:
         desired_tex = doublet[1]
         map_edit = MapEditor(base.maps[map_slot]) #type:ignore
         sidedef_switch(map_edit, initial_tex, desired_tex)
+
 
 base.to_file('doom_complete_fixed.wad')
