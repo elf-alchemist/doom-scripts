@@ -1,7 +1,7 @@
 from omg import MapEditor, WAD
 
 log_file = None
-log_path = 'plutonia_textures.log'
+log_path = 'textures_plut.log'
 
 all_maps = [
     'MAP01',

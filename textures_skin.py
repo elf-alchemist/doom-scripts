@@ -1,7 +1,7 @@
 from omg import MapEditor, WAD
 
 log_file = None
-log_path = 'textures_tnt.log'
+log_path = 'textures_skin.log'
 
 all_maps = [
     'MAP01',
@@ -36,36 +36,58 @@ all_maps = [
     'MAP30',
     'MAP31',
     'MAP32',
+    'MAP33',
+    'MAP34',
+    'MAP35',
+    'MAP36',
+    'MAP37',
+    'MAP38',
+    'MAP39',
+    'MAP40',
+    'MAP41',
+    'MAP42',
+    'MAP43',
+    'MAP44',
+    'MAP45',
+    'MAP46',
+    'MAP47',
+    'MAP48',
+    'MAP49',
+    'MAP50',
+    'MAP51',
+    'MAP52',
+    'MAP53',
+    'MAP54',
+    'MAP55',
+    'MAP56',
+    'MAP57',
+    'MAP58',
+    'MAP59',
+    'MAP60',
+    'MAP61',
+    'MAP62',
+    'MAP63',
+    'MAP64',
+    'MAP65',
+    'MAP66',
+    'MAP67',
+    'MAP68',
+    'MAP69',
+    'MAP70',
+    'MAP71',
+    'MAP72',
+    'MAP73',
+    'MAP74',
+    'MAP75',
+    'MAP76',
+    'MAP77',
 ]
 
 sidedef_arr: list[tuple[str, str]] = [
-    ('SLADRIP1', 'T_SLAD01'),
-    ('SLADRIP2', 'T_SLAD01'),
-    ('SLADRIP3', 'T_SLAD01'),
-    ('SLAD2',    'T_SLAD01'),
-    ('SLAD3',    'T_SLAD01'),
-    ('SLAD4',    'T_SLAD01'),
-    ('SLAD5',    'T_SLAD01'),
-    ('SLAD6',    'T_SLAD01'),
-    ('SLAD7',    'T_SLAD01'),
-    ('SLAD8',    'T_SLAD01'),
-    ('SLAD9',    'T_SLAD01'),
-    ('SLAD10',   'T_SLAD01'),
-    ('SLAD11',   'T_SLAD01'),
-    ('BLODGR1',  'T_BLOD1'),
-    ('BLODGR2',  'T_BLOD1'),
-    ('BLODGR3',  'T_BLOD1'),
-    ('BLODGR4',  'T_BLOD1'),
-    ('BLOD3',    'T_BLOD1'),
-    ('WFALL1',   'T_WALL1'),
-    ('WFALL2',   'T_WALL1'),
-    ('WFALL3',   'T_WALL1'),
-    ('WFALL4',   'T_WALL1'),
-    ('FALL3',    'T_WALL1'),
-    ('SW1GSTON', 'SW1TNTA'),
-    ('SW2GSTON', 'SW2TNTA'),
-    ('SW1SKULL', 'SW1TNT1'),
-    ('SW2SKULL', 'SW2TNT1'),
+    ('SKINFACE', 'SKINFACE'),
+    ('SKINEDGE', 'SKINEDGE'),
+    ('SKINBORD', 'SKINBORD'),
+    ('SKIN2', 'SKIN2'),
 ]
 
 
@@ -95,7 +117,7 @@ def sidedef_list(editor: MapEditor, init_tex: str, tex: str):
         index += 1
 
 
-base = WAD(from_file='cdce-addon-tnt.wad')
+base = WAD(from_file='cdce.wad')
 
 
 for map_slot in all_maps:
@@ -105,5 +127,3 @@ for map_slot in all_maps:
         desired = sidedef[1]
         map_edit = MapEditor(base.maps[map_slot])
         sidedef_list(map_edit, initial, desired)
-    base.to_file('./doom-addon-tnt.wad')
-
