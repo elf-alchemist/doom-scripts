@@ -83,7 +83,7 @@ def sidedef_switch(map_editor: MapEditor, initial_texture: str, desired_texture:
             single_sidedef.tx_low = desired_texture
 
 
-base = WAD(from_file='doom_complete.wad')
+base = WAD(from_file='cdce.wad')
 
 
 for map_slot in all_maps:
@@ -95,4 +95,4 @@ for map_slot in all_maps:
         sidedef_switch(map_edit, initial_tex, desired_tex)
 
 
-base.to_file('doom_complete_fixed.wad')
+base.to_file('cdce_fixed.wad')

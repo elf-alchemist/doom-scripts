@@ -28,24 +28,13 @@ all_maps = [
     'MAP22',
     'MAP23',
     'MAP24',
-    'MAP25',
-    'MAP26',
-    'MAP27',
-    'MAP28',
-    'MAP29',
-    'MAP30',
-    'MAP31',
-    'MAP32',
-    'MAP33',
-    'MAP34',
-    'MAP35',
-    'MAP36',
 ]
 
 sidedef_switch_doublet: list[tuple[str, str]] = [
     ('BRNPOIS',  'BRNPOIS1'),
     ('NUKEPOIS', 'NUKPOIS1'),
 ]
+
 
 def log(line: str) -> None:
     global log_file
@@ -55,29 +44,31 @@ def log(line: str) -> None:
     log_file.write(line + '\n')
 
 
-def sidedef_switch(map_editor: MapEditor, initial_texture: str, desired_texture: str):
+def sidedef_switch(map_editor: MapEditor, initial: str, desired_tex: str):
     for single_sidedef in map_editor.sidedefs:
         # Loop
-        if single_sidedef.tx_up == initial_texture:
-            log(f'Found {initial_texture} replaced with {desired_texture}')
-            single_sidedef.tx_up = desired_texture
+        if single_sidedef.tx_up == initial:
+            log(f'Found {initial} replaced with {desired_tex}')
+            single_sidedef.tx_up = desired_tex
         # through
-        if single_sidedef.tx_mid == initial_texture:
-            log(f'Found {initial_texture} replaced with {desired_texture}')
-            single_sidedef.tx_mid = desired_texture
+        if single_sidedef.tx_mid == initial:
+            log(f'Found {initial} replaced with {desired_tex}')
+            single_sidedef.tx_mid = desired_tex
         # all
-        if single_sidedef.tx_low == initial_texture:
-            log(f'Found {initial_texture} replaced with {desired_texture}')
-            single_sidedef.tx_low = desired_texture
+        if single_sidedef.tx_low == initial:
+            log(f'Found {initial} replaced with {desired_tex}')
+            single_sidedef.tx_low = desired_tex
 
-base = WAD(from_file='cdce.wad')
+
+base = WAD(from_file='cdce-addon-jupiter.wad')
+
 
 for map_slot in all_maps:
     log(f'Fixing map {map_slot}')
     for doublet in sidedef_switch_doublet:
         initial_texture = doublet[0]
         desired_texture = doublet[1]
-        map_edit = MapEditor(base.maps[map_slot]) #type:ignore
+        map_edit = MapEditor(base.maps[map_slot])
         sidedef_switch(map_edit, initial_texture, desired_texture)
 
-base.to_file('cdce_fixed.wad')
+base.to_file('cdce-addon-jupiter_fixed.wad')

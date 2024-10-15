@@ -75,7 +75,7 @@ def sidedef_switch(map_editor: MapEditor, initial_texture: str, desired_texture:
             log(f'Found {initial_texture}')
             single_sidedef.tx_low = desired_texture
 
-base = WAD(from_file='doom_complete.wad')
+base = WAD(from_file='cdce.wad')
 
 for map_slot in all_maps:
     log(f'Fixing map {map_slot}')
@@ -85,4 +85,4 @@ for map_slot in all_maps:
         map_edit = MapEditor(base.maps[map_slot]) #type:ignore
         sidedef_switch(map_edit, initial_texture, desired_texture)
 
-base.to_file('doom_complete_fixed.wad')
+base.to_file('cdce_fixed.wad')
